@@ -12,7 +12,24 @@
 个股学习 → 回测验证 → 模拟交易 → 实盘执行 → 每日复盘 → 再学习
 \\\
 
-本系统是面向A股单一股票的**库存管理型量化交易系统**，不是预测型自动炒股系统。系统以长期底仓为核心，通过机器学习建立个股记忆档案，识别该股票的历史波动特征、均值回归特征、趋势延续特征、流动性特征和异常风险特征。每次交易前，必须经过「学习—回测—模拟—验收」四道门。
+## 完整量化流水线（两个仓库协作）
+
+本系统由 **两个仓库** 组成完整流水线：
+
+| 仓库 | 角色 | 地址 |
+|------|------|------|
+| **a-share-selection-engine** | Phase 1：粗放选股与目标池收窄 | [github.com/perry00100/a-share-selection-engine](https://github.com/perry00100/a-share-selection-engine) |
+| **a-share-inventory-quant** | Phase 2：单标的库存型量化交易 | [github.com/perry00100/a-share-inventory-quant](https://github.com/perry00100/a-share-inventory-quant) |
+
+### 流水线
+
+\\\
+Phase 1: 选股引擎
+全A股票池 → 硬过滤 → 多维评分 → 观察池 → 学习池
+                                              ↓
+Phase 2: 库存量化系统
+个股学习 → 回测验证 → 模拟交易 → 实盘执行 → 每日复盘 → 再学习
+\\\
 
 ## 核心架构原则
 
@@ -26,34 +43,21 @@
 
 ## 合规边界（第一版）
 
-- **交易频率**：单日申报/撤单合计限制在远低于20,000笔的范围内
-- **T+1约束**：今日买入不可卖，必须区分昨日可卖库存和今日新增库存
-- **高频认定**：单账户每秒300笔以上/单日20,000笔以上进入高频认定范围，第一版系统主动限频
+- **T+1约束**：今日买入不可卖，区分昨日可卖库存和今日新增库存
+- **高频认定**：单账户每秒300笔以上/单日20,000笔以上进入高频认定，第一版主动限频
+- **印花税**：卖出端减半征收（2023年8月28日起）
 
 ## 文件结构
 
 \\\
 docs/
-├── 01_SYSTEM_OVERVIEW.md      # 系统总定义、核心原则
-├── 02_ARCHITECTURE.md        # 总架构、股票生命周期
-├── 03_STOCK_LEARNING.md       # 个股机器学习五步法
-├── 04_MODELS.md              # 四大模型设计（A/B/C/D）
-├── 05_BACKTESTING.md          # 回测系统三关验收
-├── 06_PAPER_LIVE.md          # 模拟盘与实盘决策流程
-├── 07_RISK_CONTROL.md        # 风控规则（写死，不可绕过）
-├── 08_DAILY_REVIEW.md        # 每日复盘自动化
-└── 09_MINIMUM_VIABLE.md      # MVP最小可行版本设计
+└── SYSTEM_PLAN_FULL.md   # 完整规划文档（16章节，~8000字）
+README.md                  # 本文件
 \\\
-
-## 相关资源
-
-- [a-share-selection-engine](https://github.com/perry00100/a-share-selection-engine) - A股选股引擎 v1（gerry）
-- [StockAI v3.6](https://github.com/L71615/stockai) - AI量化选股+投资决策平台
-- [QuantLight](https://github.com/spinode10000/QuantLight) - 轻量AI量化选股框架
 
 ## 法律声明
 
-本项目仅用于量化研究、选股收窄、模拟和复盘准备，不构成投资建议，也不包含自动实盘交易功能。真实交易前需确认券商接口、账户权限、监管合规和资金风险。
+本项目仅用于量化研究、选股收窄、模拟和复盘准备，不构成投资建议。真实交易前需确认券商接口、账户权限、监管合规和资金风险。
 
 ---
 
