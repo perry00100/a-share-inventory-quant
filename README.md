@@ -18,13 +18,13 @@
 
 | 仓库 | 角色 | 地址 |
 |------|------|------|
-| **a-share-selection-engine** | Phase 1：粗放选股与目标池收窄 | [github.com/perry00100/a-share-selection-engine](https://github.com/perry00100/a-share-selection-engine) |
+| **a-share-selection-engine** | 筛金优选 Phase 1：粗放选股与目标池收窄 | [github.com/perry00100/shaijin-select](https://github.com/perry00100/shaijin-select) |
 | **a-share-inventory-quant** | Phase 2：单标的库存型量化交易 | [github.com/perry00100/a-share-inventory-quant](https://github.com/perry00100/a-share-inventory-quant) |
 
 ### 流水线
 
 \\\
-Phase 1: 选股引擎
+筛金优选 Phase 1: 筛金优选
 全A股票池 → 硬过滤 → 多维评分 → 观察池 → 学习池
                                               ↓
 Phase 2: 库存量化系统
